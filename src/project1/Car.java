@@ -10,17 +10,17 @@ package project1;
  * @author Ana-1
  */
 public class Car {
-    
+    //edited class
     private String id;
     private CarSpec spec;
     public Car(String id, CarSpec spec){
-        
+
         this.id = id;
         this.spec = spec;
-    
+
     }
     public CarSpec getCarSpec(){
-        return spec; 
+        return spec;
     }
-    
+
 }
