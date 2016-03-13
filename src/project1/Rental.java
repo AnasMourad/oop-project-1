@@ -12,17 +12,17 @@ import java.util.Calendar;
  * @author Ana-1
  */
 public class Rental {
-    private Calendar rentDate, returnDate;
-    private Car car;
-    private Customer customer;
-    private Status rentalStatus;
-    
-    public Rental(Calendar rentDate, Calendar returnDate, Car car, Customer customer, Status rentaStatus){
-        this.car = car;
+  private Calendar rentDate, returnDate;
+  private String customerId, carId;   
+  private String rentalId;
+    Status rentalStatus;
+    public Rental(Calendar rentDate, Calendar returnDate, String carId, String customerId, String rentalId){
+        this.carId = carId;
         this.rentDate = rentDate;
         this.returnDate = returnDate;
-        this.customer = customer;
-        this.rentalStatus = rentalStatus;
+        this.customerId = customerId;
+        this.rentalStatus = Status.RENTED;
+        this.rentalId =  rentalId;
     }
     
     public Calendar getRentDate(){
@@ -32,15 +32,13 @@ public class Rental {
         return  returnDate;                
     }
     
-    public Car getCar(){
-        return  car;
+    public String getCarId(){
+        return  carId;
     } 
-    public Customer getCustomer(){
-        return customer; 
+    public String getCustomerId(){
+        return customerId; 
     }
-    public Status getRentalStatus(){
-        return rentalStatus;
-    }
+    
         
     
     

@@ -5,6 +5,11 @@
  */
 package GUI;
 
+import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+import project1.Controller;
+import project1.Rental;
+
 /**
  *
  * @author Jeremiah Trahern
@@ -14,8 +19,22 @@ public class Customers extends javax.swing.JFrame {
     /**
      * Creates new form Customers
      */
-    public Customers() {
+    private LinkedList<String> customers_fields;
+    Controller c;
+    public Customers(Controller c) {
+        this.c = c;
+        this.customers_fields=new LinkedList<String>();
+        customers_fields.add("ID");
+        customers_fields.add("Name");
+        customers_fields.add("Address");
         initComponents();
+        //populate_customer_table();
+    }
+  
+    private void populate_customer_table(){
+       //in case there is already some data in the customers_fields!
+      //  this.jTable1.setModel(new DefaultTableModel(new Object[][]{},customers_fields.toArray()));
+      
     }
 
     /**
@@ -37,8 +56,18 @@ public class Customers extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         rentCar.setText("Rent Car");
+        rentCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentCarActionPerformed(evt);
+            }
+        });
 
         rentedCars.setText("Rented Cars");
 
@@ -89,40 +118,30 @@ public class Customers extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // TODO add your handling code here:
+        Object[][] customers =  c.customersSearch( searchText.getText() );
+        jTable1.setModel(new DefaultTableModel(customers,customers_fields.toArray()));
+        
+        
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void rentCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCarActionPerformed
+        // TODO add your handling code here:
+         Object o;
+         int row = jTable1.getSelectedRow();
+         if(row>=0){
+             o = jTable1.getValueAt(row, 0);
+            
+             CustomerInfo detailsView=new CustomerInfo(c,(String)o);
+             detailsView.setVisible(true);
+        }
+    }//GEN-LAST:event_rentCarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Customers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Customers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Customers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Customers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Customers().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

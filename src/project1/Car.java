@@ -16,7 +16,7 @@ public class Car {
     private String id;
     private CarSpec spec;
     public Car(String id, CarSpec spec){
-
+        
         this.id = id;
         this.spec = spec;
 

@@ -13,15 +13,22 @@ public class CarSpec {
     private String make;
     private String model;
     private int year;
+    private String specId;
     private Size carSize;
     
-    public CarSpec(String make, String model, int year, Size carSize){
     
+    public CarSpec(String SpecId, String make, String model, int year, Size carSize){
+    
+        this.specId = SpecId;
         this.make = make;
         this.model = model;
         this.year = year;
         this.carSize = carSize;
     
+    }
+    
+    public String getSpecId(){
+        return specId;
     }
     
     public String getMake(){
