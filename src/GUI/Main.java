@@ -5,7 +5,9 @@
  */
 package GUI;
 
+import project1.CarSpec;
 import project1.Controller;
+import project1.Size;
 
 /**
  *
@@ -21,6 +23,12 @@ public class Main {
         c.addCustomer("321","Mourad", "0211");
         c.addCustomer("56","A", "2110");
         c.addCustomer("816","M", "1102");
+        
+        c.addCarSpecification("1", "Toyota", "pri", 2016, Size.MIDSIZE);
+        c.addCarSpecification("2", "BMW", "series 5", 2016, Size.MIDSIZE);
+        
+        c.addCar("1", "id1");
+        c.addCar("2", "id2");
         
     }
     

@@ -10,19 +10,35 @@ package project1;
  * @author Ana-1
  */
 public class Car {
-    //edited class
-    //second edit
-    //Third edit
+  
+    public enum carStatus {
+ 
+        AVAILABLE, NOTAVAILABLE;
+    
+    }
+    carStatus carstatus;
+    
+    
     private String id;
     private CarSpec spec;
-    public Car(String id, CarSpec spec){
+    public Car(CarSpec spec, String id){
         
+        carstatus = carStatus.AVAILABLE;
         this.id = id;
         this.spec = spec;
 
     }
     public CarSpec getCarSpec(){
         return spec;
+    }
+    public String getId(){
+        return id;
+        
+    }
+    
+    public boolean include(String data){
+        
+        return spec.getModel().toLowerCase().contains(data.toLowerCase()) || spec.getMake().toLowerCase().contains(data.toLowerCase());
     }
 
 }

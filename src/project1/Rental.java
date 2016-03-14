@@ -5,6 +5,8 @@
  */
 package project1;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -17,19 +19,24 @@ public class Rental {
   private String rentalId;
     Status rentalStatus;
     public Rental(Calendar rentDate, Calendar returnDate, String carId, String customerId, String rentalId){
+        
         this.carId = carId;
         this.rentDate = rentDate;
         this.returnDate = returnDate;
         this.customerId = customerId;
-        this.rentalStatus = Status.RENTED;
         this.rentalId =  rentalId;
     }
     
-    public Calendar getRentDate(){
-        return rentDate;
+    public String getRentDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        return  dateFormat.format(rentDate.getTime()); //2014/08/06 16:00:22
+        
     }
-    public Calendar getReturnDate(){
-        return  returnDate;                
+    public String getReturnDate(){
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        return  dateFormat.format(returnDate.getTime()); //2014/08/06 16:00:22
+        
     }
     
     public String getCarId(){

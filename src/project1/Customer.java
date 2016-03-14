@@ -40,5 +40,8 @@ public class Customer {
     public boolean contains(String data){
         return name.toLowerCase().contains(data.toLowerCase()) || phone.toLowerCase().contains(data.toLowerCase()) || address.toLowerCase().contains(data.toLowerCase());
     }
+    public LinkedList<String> getRentalOrders(){
+        return rentals;
+    }
     
 }

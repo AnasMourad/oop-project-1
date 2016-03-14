@@ -5,6 +5,13 @@
  */
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.LinkedList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import project1.Controller;
 
 /**
@@ -12,7 +19,36 @@ import project1.Controller;
  * @author Jeremiah Trahern
  */
 public class CustomerInfo extends javax.swing.JFrame {
+    
+     class EventHandler implements ActionListener, ListSelectionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+
+            int row = jTable1.getSelectedRow();
+            int col = jTable1.getSelectedColumn();
+            if (row >= 0 && col == 0) { //the user selected the checkbox (it is at column 0)
+                boolean value = (boolean) jTable1.getValueAt(row, 0);
+                String product_ID = (String) jTable1.getValueAt(row, 1); //we just need the product ID
+                if (value) {
+                    System.err.println("added"+ product_ID);
+                    selected_cars.add(product_ID);
+                } else {
+                    System.err.println("removed"+ product_ID);
+ 
+                    selected_cars.remove(product_ID);
+                }
+            }
+            
+        }
+
+    }
+   
     /**
      * Creates new form CustomerInfo
      */
@@ -25,12 +61,35 @@ public class CustomerInfo extends javax.swing.JFrame {
         this.CustomerId = CustomerId;
         
         initComponents();
-        this.jLabel1.setText("sss");
+        EventHandler eh = new EventHandler();
+        jTable1.getSelectionModel().addListSelectionListener(eh);
         populateCustomerInfo();
     }
      private void populateCustomerInfo() {
         jLabel1.setText(c.getCustomerName(CustomerId));
     }
+     
+     String[] new_cars_columns = {"Select", "ID", "Make", "Model", "Year", "Size"};
+     String[] new_cars_columns_mod = {"Select", "ID", "Make", "Model", "Year", "Rent date"};
+     
+     Class[] new_cars_types = new Class[]{java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+     , java.lang.Object.class, java.lang.Object.class};
+     LinkedList<String> selected_cars;
+    
+     public void populateCars(){
+         Object[][] cars = c.carsSearch(findCarText.getText());
+         DefaultTableModel model = new DefaultTableModel(cars, new_cars_columns) {
+                Class[] types = new_cars_types;
+
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+            };
+            jTable1.setModel(model);
+            selected_cars=new LinkedList<String>();
+    }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,6 +158,11 @@ public class CustomerInfo extends javax.swing.JFrame {
         }
 
         jButton1.setText("Rent Selected");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -243,8 +307,45 @@ public class CustomerInfo extends javax.swing.JFrame {
 
     private void findCarSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findCarSearchActionPerformed
         // TODO add your handling code here:
+        populateCars();
+        
     }//GEN-LAST:event_findCarSearchActionPerformed
+    
+    
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        for (String car : selected_cars) {
+            System.out.println(car);
+            c.addRental(Calendar.getInstance(), null, car, CustomerId);
+            c.setRented(car);
+        
+        }
+        
+                populateRented();
+                populateReturned();
+                populateCars();
+                selected_cars=new LinkedList<String>();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    public void populateRented(){
+         
+        Object[][] data = c.getRentalOrders(CustomerId);
+        DefaultTableModel model = new DefaultTableModel(data, new_cars_columns_mod) {
+                Class[] types = new_cars_types;
 
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+            };
+        this.jTable3.setModel(model);
+        
+    }
+    
+    public void populateReturned(){
+        
+    }
     /**
      * @param args the command line arguments
      */

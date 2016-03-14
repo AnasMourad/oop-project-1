@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
  * @author Ana-1
  */
 public class Controller {
-        
-        
     public enum Add {
 
         SUCCESS, KEYEXISTS, FAILURE
@@ -62,13 +60,13 @@ public class Controller {
         return Add.SUCCESS;
       }
       
-      public Add addCar(String id, CarSpec spec){
-          if(cars.containsKey(id)){
+      public Add addCar(String specId, String id){
+          if(cars.containsKey(specId)){
               return Add.KEYEXISTS;
               
           }else{
-              
-              cars.put(id, new Car(id, spec));
+              CarSpec spec = carSpecifications.get(specId);
+              cars.put(id, new Car(spec, id));
           }
           return Add.SUCCESS;
           
@@ -91,11 +89,30 @@ public class Controller {
           Customer customer = customers.get(customerId);
           Car car = cars.get(carId);
           //not handled car availability
+          
           String rentalId = customerId+carId; 
           Rental rental = new Rental(rentDate, returnDate, carId, customerId, rentalId);
+          rentals.put(rentalId, rental);
           customer.rentCar(rentalId);
           
-          
+      }
+      
+      public Object[][] getRentalOrders(String customerId){
+            
+            Customer customer = customers.get(customerId);
+            LinkedList<String> orders = customer.getRentalOrders();
+            Object[][] result = new Object[orders.size()][6];
+            int count = 0;
+            for (String orderID : orders) {
+                Rental rental = this.rentals.get(orderID);
+                System.out.println("OrderId: "+ orderID);
+                
+                Car car = this.cars.get(rental.getCarId());
+
+                Object[] car_array = {false, car.getId(),  car.getCarSpec().getMake(), car.getCarSpec().getModel(), car.getCarSpec().getYear(),rental.getRentDate()+""};
+                result[count++] = car_array;
+            }
+            return result;
       }
       public Object [][] customersSearch(String query){
             
@@ -111,6 +128,36 @@ public class Controller {
        
             return result;
       }
+      
+       
+        
+       
+        
+        public Object [][] carsSearch(String query){
+            
+          Collection<Car> cars = this.cars.values().stream()
+                                               .filter(item->item.include(query))
+                                               .collect(Collectors.toList());
+            Object[][] result = new Object[cars.size()][6];
+            int count = 0;
+            for (Car car : cars) {
+                //don't include rented cars!
+                if(car.carstatus == Car.carStatus.AVAILABLE){
+                    Object[] car_array = {false, car.getId(),  car.getCarSpec().getMake(), car.getCarSpec().getModel(), car.getCarSpec().getYear(), car.getCarSpec().getCarSize()};
+                    result[count++] = car_array;
+                    
+                }
+             }
+             
+            return result;
+      }
+        
+      public void setRented(String carId){
+          Car car = cars.get(carId);
+          car.carstatus = Car.carStatus.NOTAVAILABLE;
+      }  
+      
+      
       public String getCustomerName(String CustomerId){
          return customers.get(CustomerId).getName();
       }
