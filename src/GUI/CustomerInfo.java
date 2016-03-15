@@ -71,8 +71,11 @@ public class CustomerInfo extends javax.swing.JFrame {
      
      String[] new_cars_columns = {"Select", "ID", "Make", "Model", "Year", "Size"};
      String[] new_cars_columns_mod = {"Select", "ID", "Make", "Model", "Year", "Rent date"};
+     String[] new_cars_columns_mod2 = {"ID", "Make", "Model", "Year", "Rent date", "Return date"};
      
      Class[] new_cars_types = new Class[]{java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+     , java.lang.Object.class, java.lang.Object.class};
+     Class[] new_cars_types2 = new Class[]{java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
      , java.lang.Object.class, java.lang.Object.class};
      LinkedList<String> selected_cars;
     
@@ -221,6 +224,11 @@ public class CustomerInfo extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable3);
 
         returnButton.setText("Return Selected");
+        returnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -327,6 +335,22 @@ public class CustomerInfo extends javax.swing.JFrame {
                 populateCars();
                 selected_cars=new LinkedList<String>();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
+        // TODO add your handling code here:
+        for (String car : selected_cars)  {
+            System.out.println(car);
+            c.setReturned(car);
+            c.returnRental(CustomerId+car, Calendar.getInstance());
+        }
+        
+                populateRented();
+                populateReturned();
+                populateCars();  
+                selected_cars=new LinkedList<String>();
+            
+                    
+    }//GEN-LAST:event_returnButtonActionPerformed
     
     public void populateRented(){
          
@@ -344,6 +368,16 @@ public class CustomerInfo extends javax.swing.JFrame {
     }
     
     public void populateReturned(){
+        Object[][] data = c.getReturnedOrders(CustomerId);
+        DefaultTableModel model = new DefaultTableModel(data, new_cars_columns_mod2) {
+                Class[] types = new_cars_types2;
+
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+            };
+        this.jTable2.setModel(model);
         
     }
     /**

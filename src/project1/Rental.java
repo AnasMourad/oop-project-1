@@ -27,13 +27,17 @@ public class Rental {
         this.rentalId =  rentalId;
     }
     
+    public void setReturnDate(Calendar returnDate) {
+        this.returnDate = returnDate;
+    }
+    
     public String getRentDate(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         return  dateFormat.format(rentDate.getTime()); //2014/08/06 16:00:22
         
     }
     public String getReturnDate(){
-        
+        if (returnDate == null) {return "none";}
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         return  dateFormat.format(returnDate.getTime()); //2014/08/06 16:00:22
         

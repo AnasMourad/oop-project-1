@@ -97,6 +97,11 @@ public class Controller {
           
       }
       
+      public void returnRental (String rentalId, Calendar returnDate){
+          Rental rental  = rentals.get("rentalID");
+          rental.setReturnDate(returnDate);
+      }
+      
       public Object[][] getRentalOrders(String customerId){
             
             Customer customer = customers.get(customerId);
@@ -111,6 +116,28 @@ public class Controller {
 
                 Object[] car_array = {false, car.getId(),  car.getCarSpec().getMake(), car.getCarSpec().getModel(), car.getCarSpec().getYear(),rental.getRentDate()+""};
                 result[count++] = car_array;
+            }
+            return result;
+      }
+      
+      public Object [][] getReturnedOrders(String customerId){
+          Customer customer = customers.get(customerId);
+            LinkedList<String> orders = customer.getRentalOrders();
+            Object[][] result = new Object[orders.size()][6];
+            int count = 0;
+            for (String orderID : orders) {
+                Rental rental = this.rentals.get(orderID);
+                System.out.println("OrderId: "+ orderID);
+                String returnDate = rental.getReturnDate();
+                if (returnDate.equals("none")){
+                Car car = this.cars.get(rental.getCarId());
+                Object[] car_array = {car.getId(),  car.getCarSpec().getMake(), car.getCarSpec().getModel(), car.getCarSpec().getYear(),rental.getRentDate(), rental.getReturnDate()+""};
+                result[count++] = car_array;
+                }
+                
+
+    
+                
             }
             return result;
       }
@@ -156,6 +183,11 @@ public class Controller {
           Car car = cars.get(carId);
           car.carstatus = Car.carStatus.NOTAVAILABLE;
       }  
+      
+      public void setReturned(String carID) {
+          Car car = cars.get(carID);
+          car.carstatus = Car.carStatus.AVAILABLE;
+      }
       
       
       public String getCustomerName(String CustomerId){

@@ -15,6 +15,7 @@ public class Customer {
     
     private String phone, name, address;
     LinkedList<String> rentals;
+    
     public Customer(String phone, String name, String address) {
         
         this.address = address;
@@ -43,5 +44,6 @@ public class Customer {
     public LinkedList<String> getRentalOrders(){
         return rentals;
     }
+    
     
 }
