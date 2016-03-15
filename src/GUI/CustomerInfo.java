@@ -54,10 +54,12 @@ public class CustomerInfo extends javax.swing.JFrame {
      */
     Controller c;
     String CustomerId;
+    private Enter_date_frame enter_date_frame;
     public CustomerInfo(Controller c, String CustomerId) {
         
         
         this.c = c;
+        this.enter_date_frame = new Enter_date_frame(this.c, "dummy", true);
         this.CustomerId = CustomerId;
         
         initComponents();
@@ -335,6 +337,9 @@ public class CustomerInfo extends javax.swing.JFrame {
         for (String car : selected_cars) {
             System.out.println(car);
             c.addRental(Calendar.getInstance(), null, car, CustomerId);
+            enter_date_frame.setReturnDate(false);
+            enter_date_frame.setRentalID(CustomerId+car);
+            enter_date_frame.setVisible(true);
             c.setRented(car);
         
         }
@@ -347,10 +352,13 @@ public class CustomerInfo extends javax.swing.JFrame {
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
         // TODO add your handling code here:
-        for (String car : selected_cars2)  {
+            
+        for (String car : selected_cars)  {
             System.out.println(car);
+            enter_date_frame.setReturnDate(true);
+            enter_date_frame.setRentalID(CustomerId+car);
+            enter_date_frame.setVisible(true);
             c.setReturned(car);
-            c.returnRental(CustomerId+car, Calendar.getInstance());
         }
         
                 populateRented();

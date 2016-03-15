@@ -27,6 +27,9 @@ public class Rental {
         this.rentalId =  rentalId;
     }
     
+    public void setRentalDate(Calendar rentDate) {
+        this.rentDate = rentDate;
+    }
     public void setReturnDate(Calendar returnDate) {
         this.returnDate = returnDate;
     }

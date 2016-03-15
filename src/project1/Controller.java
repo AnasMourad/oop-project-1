@@ -97,9 +97,15 @@ public class Controller {
           
       }
       
-      public void returnRental (String rentalId, Calendar returnDate){
-          Rental rental  = rentals.get("rentalID");
-          rental.setReturnDate(returnDate);
+      public void setRentalDate(String rentalID, Calendar date){
+          Rental rental = rentals.get(rentalID);
+          rental.setRentalDate(date); 
+      }
+      
+      public void returnRental (String rentalID, Calendar date){
+          
+          Rental rental  = rentals.get(rentalID);
+          rental.setReturnDate(date);
       }
       
       public Object[][] getRentalOrders(String customerId){
