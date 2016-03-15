@@ -44,21 +44,7 @@ public class CustomerInfo extends javax.swing.JFrame {
                     selected_cars.remove(product_ID);
                 }
             }
-            int row2 = jTable3.getSelectedRow();
-            int col2 = jTable3.getSelectedColumn();
-            
-            if (row2 >= 0 && col2 == 0) { //the user selected the checkbox (it is at column 0)
-                boolean value = (boolean) jTable3.getValueAt(row2, 0);
-                String product_ID = (String) jTable3.getValueAt(row2, 1); //we just need the product ID
-                if (value) {
-                    System.err.println("added"+ product_ID);
-                    selected_cars2.add(product_ID);
-                } else {
-                    System.err.println("removed"+ product_ID);
- 
-                    selected_cars2.remove(product_ID);
-                }
-            } 
+             
         }
 
     }
