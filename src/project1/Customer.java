@@ -29,6 +29,7 @@ public class Customer {
         rentals.add(orderId);
     }
     
+    
     public String getPhone(){
        return phone;
     }

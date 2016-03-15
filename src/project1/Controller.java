@@ -129,7 +129,7 @@ public class Controller {
                 Rental rental = this.rentals.get(orderID);
                 System.out.println("OrderId: "+ orderID);
                 String returnDate = rental.getReturnDate();
-                if (returnDate.equals("none")){
+                if (!returnDate.equals("none")){
                 Car car = this.cars.get(rental.getCarId());
                 Object[] car_array = {car.getId(),  car.getCarSpec().getMake(), car.getCarSpec().getModel(), car.getCarSpec().getYear(),rental.getRentDate(), rental.getReturnDate()+""};
                 result[count++] = car_array;

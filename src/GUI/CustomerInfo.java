@@ -44,7 +44,6 @@ public class CustomerInfo extends javax.swing.JFrame {
                     selected_cars.remove(product_ID);
                 }
             }
-            
         }
 
     }
@@ -78,6 +77,7 @@ public class CustomerInfo extends javax.swing.JFrame {
      Class[] new_cars_types2 = new Class[]{java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
      , java.lang.Object.class, java.lang.Object.class};
      LinkedList<String> selected_cars;
+     LinkedList<String> selected_cars2;
     
      public void populateCars(){
          Object[][] cars = c.carsSearch(findCarText.getText());
@@ -156,9 +156,6 @@ public class CustomerInfo extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("ID");
-        }
 
         jButton1.setText("Rent Selected");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +216,11 @@ public class CustomerInfo extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(jTable3);
@@ -351,6 +353,10 @@ public class CustomerInfo extends javax.swing.JFrame {
             
                     
     }//GEN-LAST:event_returnButtonActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+                  // TODO add your handling code here:
+    }//GEN-LAST:event_jTable3MouseClicked
     
     public void populateRented(){
          
