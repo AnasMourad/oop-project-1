@@ -70,6 +70,11 @@ public class Customers extends javax.swing.JFrame {
         });
 
         rentedCars.setText("Rented Cars");
+        rentedCars.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentedCarsActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,6 +142,18 @@ public class Customers extends javax.swing.JFrame {
              detailsView.setVisible(true);
         }
     }//GEN-LAST:event_rentCarActionPerformed
+
+    private void rentedCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentedCarsActionPerformed
+         Object o;
+         int row = jTable1.getSelectedRow();
+         if(row>=0){
+             o = jTable1.getValueAt(row, 0);
+            
+             CustomerInfo detailsView=new CustomerInfo(c,(String)o);
+             detailsView.setPane(1);
+             detailsView.setVisible(true);
+        }
+    }//GEN-LAST:event_rentedCarsActionPerformed
 
     /**
      * @param args the command line arguments

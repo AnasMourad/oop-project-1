@@ -68,6 +68,8 @@ public class CustomerInfo extends javax.swing.JFrame {
         jTable3.getSelectionModel().addListSelectionListener(eh);
         populateCustomerInfo();
     }
+    
+     
      private void populateCustomerInfo() {
         jLabel1.setText(c.getCustomerName(CustomerId));
     }
@@ -123,7 +125,7 @@ public class CustomerInfo extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("jLabel1");
 
@@ -405,6 +407,10 @@ public class CustomerInfo extends javax.swing.JFrame {
         this.jTable2.setModel(model);
         
     }
+    
+    public void setPane(int i){
+         this.jTabbedPane1.setSelectedIndex(i);
+     }
     /**
      * @param args the command line arguments
      */
