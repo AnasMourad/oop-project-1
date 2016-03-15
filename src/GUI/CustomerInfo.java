@@ -44,6 +44,22 @@ public class CustomerInfo extends javax.swing.JFrame {
                     selected_cars.remove(product_ID);
                 }
             }
+            
+            int row2 = jTable3.getSelectedRow();
+            int col2 = jTable3.getSelectedColumn();
+            
+            if (row2 >= 0 && col2 == 0) { //the user selected the checkbox (it is at column 0)
+                boolean value = (boolean) jTable3.getValueAt(row2, 0);
+                String product_ID = (String) jTable3.getValueAt(row2, 1); //we just need the product ID
+                if (value) {
+                    System.err.println("added"+ product_ID);
+                    selected_cars2.add(product_ID);
+                } else {
+                    System.err.println("removed"+ product_ID);
+ 
+                    selected_cars2.remove(product_ID);
+                }
+            } 
         }
 
     }
@@ -61,6 +77,7 @@ public class CustomerInfo extends javax.swing.JFrame {
         
         initComponents();
         EventHandler eh = new EventHandler();
+        jTable1.getSelectionModel().addListSelectionListener(eh);
         jTable1.getSelectionModel().addListSelectionListener(eh);
         populateCustomerInfo();
     }
@@ -153,6 +170,11 @@ public class CustomerInfo extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -340,7 +362,7 @@ public class CustomerInfo extends javax.swing.JFrame {
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
         // TODO add your handling code here:
-        for (String car : selected_cars)  {
+        for (String car : selected_cars2)  {
             System.out.println(car);
             c.setReturned(car);
             c.returnRental(CustomerId+car, Calendar.getInstance());
@@ -349,14 +371,18 @@ public class CustomerInfo extends javax.swing.JFrame {
                 populateRented();
                 populateReturned();
                 populateCars();  
-                selected_cars=new LinkedList<String>();
+                selected_cars2=new LinkedList<String>();
             
                     
     }//GEN-LAST:event_returnButtonActionPerformed
 
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
-                  // TODO add your handling code here:
+
     }//GEN-LAST:event_jTable3MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
     
     public void populateRented(){
          
