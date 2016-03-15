@@ -44,7 +44,6 @@ public class CustomerInfo extends javax.swing.JFrame {
                     selected_cars.remove(product_ID);
                 }
             }
-            
             int row2 = jTable3.getSelectedRow();
             int col2 = jTable3.getSelectedColumn();
             
@@ -78,7 +77,7 @@ public class CustomerInfo extends javax.swing.JFrame {
         initComponents();
         EventHandler eh = new EventHandler();
         jTable1.getSelectionModel().addListSelectionListener(eh);
-        jTable1.getSelectionModel().addListSelectionListener(eh);
+        jTable3.getSelectionModel().addListSelectionListener(eh);
         populateCustomerInfo();
     }
      private void populateCustomerInfo() {
